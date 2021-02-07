@@ -12,7 +12,7 @@ const Index: React.FC = () => {
     const { family, error } = useFamily();
 
     if (error) return <div>failed to load</div>
-    if (!family) return <div>loading...</div>
+    if (!family && !error) return <div>ファミリーがいません‥.</div>
 
     return (
         <React.Fragment>
@@ -22,7 +22,7 @@ const Index: React.FC = () => {
                         return (
                             <ListItem key={index} alignItems="flex-start">
                                 <ListItemAvatar>
-                                    <Avatar alt="Remy Sharp" src={value.PictureUrl} />
+                                    <Avatar alt="アカウントのアイコン" src={value.PictureUrl} />
                                 </ListItemAvatar>
                                 <ListItemText
                                     primary={value.Name}
