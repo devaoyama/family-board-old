@@ -1,6 +1,6 @@
 module.exports = {
     env: {
-        API_ENDPOINT: process.env.API_ENDPOINT,
+        BASE_URL: process.env.BASE_URL,
         LIFF_ID: process.env.LIFF_ID,
     }
 }

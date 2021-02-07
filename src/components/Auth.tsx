@@ -10,8 +10,11 @@ const Auth = ({ children }) => {
     useEffect(() => {
         if (liff.isLoggedIn()) {
             setLogin(undefined)
-            fetch(process.env.API_ENDPOINT + '/login', {
+            fetch(process.env.BASE_URL + '/login', {
                 method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
                     id_token: liff.getIDToken(),
                 }),
