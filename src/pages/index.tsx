@@ -16,9 +16,6 @@ const Index: React.FC = () => {
     const { family, error } = useFamily();
     const { user } = useMe();
 
-    if (error) return <div>failed to load</div>
-    if (!family && !error) return <div>ファミリーがいません‥.</div>
-
     useEffect(() => {
         if (family && user) {
             const users = family.Users.filter(value => {
@@ -27,6 +24,9 @@ const Index: React.FC = () => {
             setUsers([...users, user]);
         }
     }, [family, user])
+
+    if (error) return <div>failed to load</div>
+    if (!family && !error) return <div>ファミリーがいません‥.</div>
 
     return (
         <React.Fragment>

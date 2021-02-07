@@ -5,7 +5,6 @@ import JWTContext from "../contexts/JWTContext";
 const Auth = ({ children }) => {
     const [isLogin, setLogin] = useState<boolean | undefined>(undefined);
     const [jwt, setJwt] = useState<string | null>(null);
-    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (liff.isLoggedIn()) {
@@ -19,22 +18,18 @@ const Auth = ({ children }) => {
                     id_token: liff.getIDToken(),
                 }),
             }).then(response => {
-                response.text().then(value => setJwt(value));
-                setLogin(true);
-            }).catch(() => {
-                setLogin(false);
-                setError('ログインエラー');
+                if (response.status !== 200) {
+                    liff.logout();
+                    setLogin(false);
+                } else {
+                    response.text().then(value => setJwt(value));
+                    setLogin(true);
+                }
             });
         } else {
             setLogin(false);
         }
     }, []);
-
-    if (error) {
-        return (
-            <div>{error}</div>
-        );
-    }
 
     if (isLogin && jwt) {
         return (

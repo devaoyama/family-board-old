@@ -7,23 +7,16 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useFamily } from "../data/use-family";
 import { useMe } from "../data/use-me";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import UserStatusFormMenu from "./UserStatusFormMenu";
+import HeaderMenu from "./HeaderMenu";
 
 const Header = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
 
     const { family } = useFamily();
     const { user } = useMe();
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
     };
 
     return (
@@ -39,23 +32,7 @@ const Header = () => {
                 >
                     <Avatar alt="アイコン画像" src={user?.PictureUrl} />
                 </IconButton>
-                <Menu
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    open={open}
-                    onClose={handleClose}
-                >
-                    <MenuItem onClick={handleClose}>招待コードを表示</MenuItem>
-                    <UserStatusFormMenu />
-                </Menu>
+                <HeaderMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
             </Toolbar>
         </AppBar>
     )
