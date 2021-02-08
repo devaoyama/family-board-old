@@ -3,4 +3,5 @@ export type TUser = {
     Name: string
     PictureUrl: string
     Status: string
+    FamilyId: number
 }
