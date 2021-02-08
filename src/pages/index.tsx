@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -26,7 +26,7 @@ const Index: React.FC = () => {
     }, [family, user])
 
     if (error) return <div>failed to load</div>
-    if (!family && !error) return <div>ファミリーがいません‥.</div>
+    if (!family && !error) return null;
 
     return (
         <React.Fragment>

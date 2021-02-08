@@ -23,7 +23,7 @@ const Header = () => {
         <AppBar position="static">
             <Toolbar>
                 <Typography variant="h6">
-                    {family?.Name + '家' || ''}
+                    {family?.Name || '名無し'}家
                 </Typography>
                 <Box ml="auto" />
                 <IconButton
