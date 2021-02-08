@@ -23,7 +23,7 @@ const FamilyCreateDialogContent = ({ setOpen }) => {
                 </FormControl>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => setOpen(true)} color="inherit">
+                <Button onClick={() => setOpen('join')} color="inherit">
                     招待コードを入力する
                 </Button>
                 <Box mr={"auto"} />

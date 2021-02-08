@@ -6,26 +6,26 @@ import FamilyCreateDialogContent from "./FamilyCreateDialogContent";
 import FamilyJoinDialogContent from "./FamilyJoinDialogContent";
 
 const FamilyDialog = () => {
-    const [open, setOpen] = useState<boolean | undefined>(true);
+    const [open, setOpen] = useState<'create' | 'join' | ''>('join');
 
     const { user, loading } = useMe();
 
-    if (!user && loading) return <Loading />
+    if (loading) return <Loading />
 
-    if (user.FamilyId) {
+    if (user?.FamilyId) {
         return null;
     }
 
     return (
         <React.Fragment>
             <Dialog
-                open={open}
+                open={open === 'join'}
                 fullWidth
             >
                 <FamilyJoinDialogContent setOpen={setOpen} />
             </Dialog>
             <Dialog
-                open={!open}
+                open={open === 'create'}
                 fullWidth
             >
                 <FamilyCreateDialogContent setOpen={setOpen} />
