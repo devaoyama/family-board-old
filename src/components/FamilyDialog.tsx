@@ -1,31 +1,31 @@
 import React, { useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
-import { useMe } from "../data/use-me";
+import { useFamily } from "../data/use-family";
 import Loading from "./Loading";
 import FamilyCreateDialogContent from "./FamilyCreateDialogContent";
 import FamilyJoinDialogContent from "./FamilyJoinDialogContent";
 
 const FamilyDialog = () => {
-    const [open, setOpen] = useState<'create' | 'join' | ''>('join');
+    const [open, setOpen] = useState<boolean>(true);
 
-    const { user, loading } = useMe();
+    const { family, loading } = useFamily();
 
     if (loading) return <Loading />
 
-    if (user?.FamilyId) {
+    if (family) {
         return null;
     }
 
     return (
         <React.Fragment>
             <Dialog
-                open={open === 'join'}
+                open={open}
                 fullWidth
             >
                 <FamilyJoinDialogContent setOpen={setOpen} />
             </Dialog>
             <Dialog
-                open={open === 'create'}
+                open={!open}
                 fullWidth
             >
                 <FamilyCreateDialogContent setOpen={setOpen} />

@@ -31,7 +31,6 @@ const FamilyJoinDialogContent = ({ setOpen }) => {
                 setError('招待コードが間違っています');
                 return;
             }
-            setOpen('');
 
             return await response.json()
         });
@@ -52,7 +51,7 @@ const FamilyJoinDialogContent = ({ setOpen }) => {
                 </FormControl>
             </DialogContent>
             <DialogActions>
-                <Button onClick={() => setOpen('create')} color="inherit">
+                <Button onClick={() => setOpen(false)} color="inherit">
                     ファミリーを新しく作成
                 </Button>
                 <Box mr={"auto"} />
