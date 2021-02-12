@@ -16,6 +16,21 @@ const HeaderMenu = ({ anchorEl, setAnchorEl }) => {
         setAnchorEl(null);
     };
 
+    const handleMenuClick = (menu: string) => {
+        setAnchorEl(null);
+        switch (menu) {
+            case 'first':
+                setFirstMenu(true);
+                break;
+            case 'second':
+                setSecondMenu(true);
+                break;
+            case 'third':
+                setThirdMenu(true);
+                break
+        }
+    }
+
     return (
         <Menu
             anchorEl={anchorEl}
@@ -31,9 +46,9 @@ const HeaderMenu = ({ anchorEl, setAnchorEl }) => {
             open={open}
             onClose={handleClose}
         >
-            <MenuItem onClick={() => setFirstMenu(true)}>招待コードを表示</MenuItem>
-            <MenuItem onClick={() => setSecondMenu(true)}>ステータス変更</MenuItem>
-            <MenuItem onClick={() => setThirdMenu(true)}>ファミリーを抜ける</MenuItem>
+            <MenuItem onClick={() => handleMenuClick('first')}>招待コードを表示</MenuItem>
+            <MenuItem onClick={() => handleMenuClick('second')}>ステータス変更</MenuItem>
+            <MenuItem onClick={() => handleMenuClick('third')}>ファミリーを抜ける</MenuItem>
             <FamilyInvitationCodeDialog open={firstMenu} setOpen={setFirstMenu} />
             <UserStatusForm open={secondMenu} setOpen={setSecondMenu} />
             <FamilyLeaveDialog open={thirdMenu} setOpen={setThirdMenu} />
