@@ -1,33 +1,39 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext} from "react";
 import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import {TTodo} from "../entities/Todo";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import TodoDescriptionIconButton from "../components/TodoDescriptionIconButton";
 import TodoCreateFormDialog from "../components/TodoCreateFormDialog";
+import {useTodo} from "../data/use-todo";
+import Loading from "../components/Loading";
+import {mutate} from "swr";
+import JWTContext from "../contexts/JWTContext";
 
 const Index: React.FC = () => {
-    const [todos, setTodos] = useState<TTodo[]>([]);
+    const {todos, error, loading} = useTodo();
 
-    useEffect(() => {
-        const todo: TTodo[] = [
-            {
-                Title: "犬の散歩",
-                Description: "犬の散歩に行く",
-                Status: true,
-            },
-            {
-                Title: "犬のご飯",
-                Description: "犬にご飯を上げる",
-                Status: false,
-            },
-        ];
-        setTodos(todo);
-    }, [])
+    const jwt = useContext(JWTContext);
+
+    if (error) return <div>failed to load</div>
+    if (loading) return <Loading/>
+
+    const handleCheck = async (id: number) => {
+        await mutate('/todos', async () => {
+            await fetch(process.env.BASE_URL + `/todos/${id}/change_status`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + jwt,
+                },
+            });
+
+            return;
+        });
+    };
 
     return (
         <React.Fragment>
@@ -40,20 +46,21 @@ const Index: React.FC = () => {
                                     <Checkbox
                                         edge="start"
                                         checked={value.Status}
+                                        onChange={() => handleCheck(value.ID)}
                                     />
                                 </ListItemIcon>
                                 <ListItemText
                                     primary={value.Title}
                                 />
                                 <ListItemSecondaryAction>
-                                    <TodoDescriptionIconButton description={value.Description} />
+                                    <TodoDescriptionIconButton description={value.Description}/>
                                 </ListItemSecondaryAction>
                             </ListItem>
                         )
                     })}
                 </List>
             </Container>
-            <TodoCreateFormDialog />
+            <TodoCreateFormDialog/>
         </React.Fragment>
     )
 };
