@@ -7,8 +7,8 @@ import {TTodo} from "../entities/Todo";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import IconButton from "@material-ui/core/IconButton";
-import CommentIcon from '@material-ui/icons/Comment';
+import TodoDescriptionIconButton from "../components/TodoDescriptionIconButton";
+import TodoCreateFormDialog from "../components/TodoCreateFormDialog";
 
 const Index: React.FC = () => {
     const [todos, setTodos] = useState<TTodo[]>([]);
@@ -46,15 +46,14 @@ const Index: React.FC = () => {
                                     primary={value.Title}
                                 />
                                 <ListItemSecondaryAction>
-                                    <IconButton edge="end" aria-label="comments">
-                                        <CommentIcon />
-                                    </IconButton>
+                                    <TodoDescriptionIconButton description={value.Description} />
                                 </ListItemSecondaryAction>
                             </ListItem>
                         )
                     })}
                 </List>
             </Container>
+            <TodoCreateFormDialog />
         </React.Fragment>
     )
 };
