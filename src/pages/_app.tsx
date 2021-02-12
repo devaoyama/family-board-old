@@ -4,6 +4,7 @@ import Auth from "../components/Auth";
 import Header from "../components/Header";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FamilyDialog from "../components/FamilyDialog";
+import FooterMenu from "../components/FooterMenu";
 
 const App = ({ Component, pageProps }) => {
     return (
@@ -14,6 +15,7 @@ const App = ({ Component, pageProps }) => {
                     <FamilyDialog />
                     <Header />
                     <Component {...pageProps} />
+                    <FooterMenu />
                 </Auth>
             </Liff>
         </React.Fragment>
