@@ -10,6 +10,7 @@ const Auth = ({ children }) => {
         if (liff.isLoggedIn()) {
             setLogin(undefined)
             fetch(process.env.BASE_URL + '/login', {
+                mode: "cors",
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
