@@ -20,7 +20,11 @@ const Auth = ({ children }) => {
                 }),
             }).then(async response => {
                 if (response.status !== 200) {
-                    console.log(await response.json());
+                    const error = await response.json();
+                    console.log(error);
+                    if (error.error_description?.error_description === 'IdToken expired.') {
+                        liff.logout();
+                    }
                     setLogin(undefined);
                 } else {
                     setJwt(await response.text());
