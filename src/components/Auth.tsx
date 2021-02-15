@@ -18,12 +18,12 @@ const Auth = ({ children }) => {
                 body: JSON.stringify({
                     id_token: liff.getIDToken(),
                 }),
-            }).then(response => {
+            }).then(async response => {
                 if (response.status !== 200) {
-                    liff.logout();
-                    setLogin(false);
+                    console.log(await response.json());
+                    setLogin(undefined);
                 } else {
-                    response.text().then(value => setJwt(value));
+                    setJwt(await response.text());
                     setLogin(true);
                 }
             });
